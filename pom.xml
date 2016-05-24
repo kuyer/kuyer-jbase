@@ -30,6 +30,17 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
 		</dependency>
+		<!-- mahout -->
+		<dependency>
+		    <groupId>org.apache.mahout</groupId>
+		    <artifactId>mahout-core</artifactId>
+		    <version>0.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.mahout</groupId>
+		    <artifactId>mahout-hdfs</artifactId>
+		    <version>0.12.0</version>
+		</dependency>
 		<!-- hadoop -->
 		<dependency>
 		    <groupId>org.apache.hadoop</groupId>
