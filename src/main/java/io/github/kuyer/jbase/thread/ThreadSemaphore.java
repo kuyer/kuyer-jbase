@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+// http://www.cnblogs.com/leesf456/default.html?page=2
 // http://www.cnblogs.com/gaoxing/p/4348719.html
 public class ThreadSemaphore {
 
