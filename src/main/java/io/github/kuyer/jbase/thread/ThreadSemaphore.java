@@ -10,25 +10,28 @@ public class ThreadSemaphore {
 
 	public static void main(String[] args) {
 		
-		int maxAvailable = 10;
+		int maxAvailable = 5;
 		Semaphore available = new Semaphore(maxAvailable, true);
 		
-		ExecutorService executor = Executors.newCachedThreadPool();
-		for(int i=0; i<30; i++) {
+		ExecutorService executor = Executors.newFixedThreadPool(3);
+		for(int i=0; i<8; i++) {
 			executor.execute(new Runnable() {
 				@Override
 				public void run() {
 					try {
 						available.acquire();
-						System.out.println("save date");
-						available.release();
+						Thread.sleep(2000);
+						System.out.println(Thread.currentThread().getName()+" acquire count: 1");
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					} finally {
+						available.release();
+						System.out.println(Thread.currentThread().getName()+" release count: 1");
 					}
-					
 				}});
-			executor.shutdown();
 		}
+		executor.shutdown();
+		//System.in.read();
 	}
 
 }
