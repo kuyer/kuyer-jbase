@@ -1,4 +1,4 @@
-package io.github.kuyer.jbase.sort;
+package io.github.kuyer.jbase.sort.tree;
 
 /** 
  * 二叉树
