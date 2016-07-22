@@ -47,11 +47,31 @@
 		    <groupId>org.apache.mahout</groupId>
 		    <artifactId>mahout-core</artifactId>
 		    <version>0.9</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.apache.lucene</groupId>
+		    		<artifactId>lucene-core</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.apache.lucene</groupId>
+		    		<artifactId>lucene-analyzers-common</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.mahout</groupId>
 		    <artifactId>mahout-hdfs</artifactId>
 		    <version>0.12.0</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.apache.lucene</groupId>
+		    		<artifactId>lucene-core</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.apache.lucene</groupId>
+		    		<artifactId>lucene-analyzers-common</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		<!-- hadoop -->
 		<dependency>
