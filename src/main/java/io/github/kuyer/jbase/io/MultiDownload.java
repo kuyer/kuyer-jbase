@@ -1,41 +1,86 @@
 package io.github.kuyer.jbase.io;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MultiDownload {
-
-	public static void main(String[] args) throws Exception {
-		String path = "d:\\spark-1.6.1-bin-hadoop2.6.tgz";
-		//String link = "http://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz";
-		String link = "http://nginx.org/download/nginx-1.11.1.zip";
-		int threadNum = 20;
+	
+	public void download(String url, String path, int threads) throws Exception {
+		URL hurl = new URL(url);
+		HttpURLConnection connection = (HttpURLConnection) hurl.openConnection();
+//		connection.setRequestMethod("GET");
+		connection.setReadTimeout(5000);
 		
-		URL url = new URL(link);
-		long fileLength = getFileLength(url);
-		System.out.println("file length: "+fileLength);
+		Executor executor = Executors.newFixedThreadPool(threads);
 		
-		RandomAccessFile rfile = new RandomAccessFile(path, "rw");
-		rfile.write(0);
-		rfile.close();
-		
-		long perSize = fileLength/threadNum;
-		long leftSize = fileLength%threadNum;
-		
-		for(int i=0; i<threadNum; i++) {
-			long startIndex = i * perSize;
-			long endIndex = (i+1) * perSize;
-			if(i == threadNum-1) {
-				endIndex += leftSize;
+		int count = connection.getContentLength();//获取文件大小
+		int block = count/threads;
+		for(int i=0; i<threads; i++) {
+			long start = i*block;
+			long end = (i+1)*block - 1;
+			if(i == threads-1) {
+				end = count;
 			}
-			new MultiDownloadThread(url, path, startIndex, endIndex).start();
+			executor.execute(new MultiDownloadTask(url, path, start, end));
 		}
 	}
 	
-	public static long getFileLength(URL url) throws Exception {
-		URLConnection conn = url.openConnection();
-		return conn.getContentLengthLong();
+	class MultiDownloadTask implements Runnable {
+		
+		private String url;
+		private String path;
+		private long start;
+		private long end;
+
+		public MultiDownloadTask(String url, String path, long start, long end) {
+			this.url = url;
+			this.path = path;
+			this.start = start;
+			this.end = end;
+		}
+
+		@Override
+		public void run() {
+			try {
+				System.out.println("start down start: "+start+"; end: "+end);
+				URL hurl = new URL(url);
+				HttpURLConnection connection = (HttpURLConnection) hurl.openConnection();
+//				connection.setRequestMethod("get");
+				connection.setReadTimeout(5000);
+				connection.setRequestProperty("Range", "bytes="+start+"-"+end);
+				RandomAccessFile raf = new RandomAccessFile(new File(path), "rw");
+				raf.seek(start);
+				InputStream is = connection.getInputStream();
+				byte[] bytes = new byte[4*1024];
+				int len;
+				while((len=is.read(bytes)) != -1) {
+					raf.write(bytes, 0, len);
+				}
+				if(null != raf) {
+					raf.close();
+				}
+				if(null != is) {
+					is.close();
+				}
+				System.out.println("end down start: "+start+"; end: "+end);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
+	public static void main(String[] args) throws Exception {
+		//String path = "d:\\spark-1.6.1-bin-hadoop2.6.tgz";
+		//String link = "http://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz";
+		//String link = "http://nginx.org/download/nginx-1.11.1.zip";
+		new MultiDownload().download("http://nginx.org/download/nginx-1.11.1.zip", 
+				"d:\\nginx-1.11.1.zip", 3);
+	}
+	
 }
