@@ -20,7 +20,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 public class IndexSearch5 {
 
 	public static void main(String[] args) throws Exception {
-		String indexPath = "D:\\Work\\doc\\sindex";
+		String indexPath = "D:\\Work\\temp";
 		String fieldName = "text";
 		String word = "city";
 		String[] texts = new String[] {
@@ -37,9 +37,13 @@ public class IndexSearch5 {
 		//Directory directory = new RAMDirectory();
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		IndexWriter writer = new IndexWriter(directory, config);
+		writer.deleteAll();
+		//writer.forceMergeDeletes();//强制清除回收站
 		for(String text : texts) {
 			Document doc = new Document();
 			doc.add(new Field(fieldName, text, TextField.TYPE_STORED));
+			if(text.equals("usa has many cities, and model city")) {
+			}
 			writer.addDocument(doc);
 		}
 		writer.close();
