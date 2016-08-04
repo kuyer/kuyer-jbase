@@ -1,7 +1,4 @@
-package io.github.kuyer.jbase.search;
-
-import io.github.kuyer.jbase.search.analyzer.MyAnalyzer;
-import io.github.kuyer.jbase.search.analyzer.MySmartAnalyzer;
+package io.github.kuyer.jbase.search.analyzer;
 
 import java.io.StringReader;
 
@@ -54,7 +51,7 @@ public class AnalyzerDemo {
 		Analyzer analyzer3 = new SimpleAnalyzer();
 		Analyzer analyzer4 = new WhitespaceAnalyzer();
 		Analyzer analyzer5 = new SmartChineseAnalyzer();
-		Analyzer analyzer6 = new MySmartAnalyzer(new String[] {"，", ",", "在", "是", "的"});
+		Analyzer analyzer6 = new MySmartAnalyzer(new String[] {"在", "是", "的"});
 		Analyzer analyzer7 = new MyAnalyzer(new String[] {"I", "am", "from"});
 		
 		//String content = "this is my house, I am come from Zhengzhou, my house is closed.";

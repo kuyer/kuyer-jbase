@@ -1,4 +1,4 @@
-package io.github.kuyer.jbase.search;
+package io.github.kuyer.jbase.search.store;
 
 import java.io.File;
 import java.nio.file.Path;

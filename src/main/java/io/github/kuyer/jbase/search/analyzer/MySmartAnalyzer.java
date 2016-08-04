@@ -1,12 +1,13 @@
 package io.github.kuyer.jbase.search.analyzer;
 
+import io.github.kuyer.jbase.search.analyzer.filter.MySameTokenFilter;
+
 import java.nio.charset.StandardCharsets;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.cn.smart.HMMChineseTokenizer;
-import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.en.PorterStemFilter;
 import org.apache.lucene.analysis.util.CharArraySet;
@@ -17,13 +18,13 @@ public class MySmartAnalyzer extends Analyzer {
 	
 	private CharArraySet stopWords;
 	
-	private static final String DEFAULT_STOPWORD_FILE = "stopwords.txt";
+	private static final String DEFAULT_STOPWORD_FILE = "mystopwords.txt";
 	private static final String STOPWORD_FILE_COMMENT = "//";
 	
 	private CharArraySet getDefautStopWords() {
 		try {
 			return CharArraySet.unmodifiableSet(WordlistLoader.getWordSet(IOUtils
-			          .getDecodingReader(SmartChineseAnalyzer.class, DEFAULT_STOPWORD_FILE,
+			          .getDecodingReader(MySmartAnalyzer.class, DEFAULT_STOPWORD_FILE,
 			              StandardCharsets.UTF_8), STOPWORD_FILE_COMMENT));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,14 +33,17 @@ public class MySmartAnalyzer extends Analyzer {
 	}
 	
 	public MySmartAnalyzer() {
-		stopWords = getDefautStopWords();
+		this(new String[] {});
 	}
 	
 	public MySmartAnalyzer(String[] words) {
-		stopWords = StopFilter.makeStopSet(words, true);
+		CharArraySet sw = StopFilter.makeStopSet(words, true);
+		if(null != sw) {
+			stopWords = sw;
+		}
 		CharArraySet cas = getDefautStopWords();
 		if(null != cas) {
-			stopWords.add(cas);
+			stopWords.addAll(cas);
 		}
 	}
 
@@ -50,7 +54,7 @@ public class MySmartAnalyzer extends Analyzer {
 		if(null!=stopWords && !stopWords.isEmpty()) {
 			result = new StopFilter(result, stopWords);
 		}
-		return new TokenStreamComponents(tokenizer, result);
+		return new TokenStreamComponents(tokenizer, new MySameTokenFilter(result));
 	}
 
 }
