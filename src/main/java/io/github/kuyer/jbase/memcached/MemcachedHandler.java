@@ -11,7 +11,7 @@ public class MemcachedHandler extends SimpleChannelInboundHandler<MemcachedComma
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, MemcachedCommand<MemcachedResponse> response)
+	protected void channelRead0(ChannelHandlerContext ctx, MemcachedCommand<MemcachedResponse> response)
 			throws Exception {
 		logger.info("memcached client receive message.");
 		response.setResponse();
