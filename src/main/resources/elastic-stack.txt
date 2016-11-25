@@ -1,0 +1,11 @@
+Elastic Stack
+白石麻衣 Mai Shiraishi﻿
+Overview
+The Elastic Stack is made up of multiple components developed by Elastic. In no particular order, these are:
+Beats 5.0
+Elasticsearch 5.0
+Elasticsearch Hadoop 5.0
+Kibana 5.0
+Logstash 5.0
+X-Pack 5.0
+In this guide, you learn how to install and upgrade products in the Elastic Stack.
