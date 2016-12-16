@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Undertow Chat</title>
+<style type="text/css">
+input {
+}
+ul {
+}
+ul li {
+}
+</style>
+<script type="text/javascript">
+var wsocket;
+if(window.WebSocket) {
+	wsocket = new WebSocket('ws://localhost:8989/chat');
+	wsocket.onmessage = function(event) {
+		var chat = document.getElementById('chat');
+		chat.innerHTML = chat.innerHTML + '<li>' + event.data + '</li>';
+	};
+} else {
+	alert('your browser is not support websocket');
+}
+function send(message) {
+	if(!window.WebSocket) {
+		alert('your browser is not support websocket');
+	}
+	if(wsocket.readyState == WebSocket.OPEN) {
+		wsocket.send(message);
+	} else {
+		alert('websocket is not open');
+	}
+	return false;
+}
+</script>
+</head>
+<body>
+<form onsubmit="return false;">
+<input type="text" name="message" onkeypress="if(event.keyCode==13) {send(this.form.message.value);this.value=''}" />
+</form>
+<ul id="chat"></ul>
+</body>
+</html>
