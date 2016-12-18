@@ -73,6 +73,22 @@
 		    	</exclusion>
 		    </exclusions>
 		</dependency>
+		<!-- spark -->
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.11</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_2.11</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-mllib_2.11</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 		<!-- hadoop -->
 		<dependency>
 		    <groupId>org.apache.hadoop</groupId>
@@ -113,6 +129,12 @@
 		    <artifactId>lucene-analyzers-smartcn</artifactId>
 		    <version>5.5.0</version>
 		</dependency>
+		<!-- 分词 -->
+		<dependency>
+			<groupId>org.lionsoul</groupId>
+			<artifactId>jcseg-core</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 		<!-- kafka -->
 		<dependency>
 		    <groupId>org.apache.kafka</groupId>
@@ -146,6 +168,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
             <plugin>
