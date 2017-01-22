@@ -151,6 +151,22 @@
 		    <artifactId>kafka-streams-examples</artifactId>
 		    <version>0.10.0.0</version>
 		</dependency>
+		<!-- aio -->
+		<dependency>
+		    <groupId>com.talent-aio</groupId>
+		    <artifactId>talent-aio-common</artifactId>
+		    <version>1.0.0-RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.talent-aio</groupId>
+		    <artifactId>talent-aio-client</artifactId>
+		    <version>1.0.0-RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.talent-aio</groupId>
+		    <artifactId>talent-aio-server</artifactId>
+		    <version>1.0.0-RELEASE</version>
+		</dependency>
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
