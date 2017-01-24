@@ -15,9 +15,9 @@ public class HelloServerAioHandler extends HelloAioHandler implements ServerAioH
 		byte[] body = packet.getBody();
 		if(null != body) {
 			String message = new String(body, HelloPacket.CHARSET);
-			System.out.println("received: "+message);
+			System.out.println("server received: "+message);
 			HelloPacket response = new HelloPacket();
-			response.setBody(("your message: "+message).getBytes(HelloPacket.CHARSET));
+			response.setBody(("your message is "+message).getBytes(HelloPacket.CHARSET));
 			Aio.send(channelContext, response);
 		}
 		return null;
