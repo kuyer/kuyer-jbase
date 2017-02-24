@@ -8,27 +8,65 @@ package io.github.kuyer.jbase.sort.string;
  * @author rory.zhang
  */
 public class BruteForce {
-
-	public static void main(String[] args) {
-		String s = "yorhellomynameisrrhowareyouwhatisyornameyou";
-		String t = "your";
-		
-		boolean flag = false;
+	
+	public static int isMatch(String s, String t) {
+		int result = -1;
 		int index = 0;
 		int len = s.length();
+		System.out.println("length1: "+len);
+		int times = 0;
 		for(int i=0; i<len; i++) {
+			times ++;
 			char c = s.charAt(i);
 			if(c == t.charAt(index)) {
+				if(result == -1) {
+					result = i;
+				}
 				index++;
 				if(index == t.length()) {
-					flag = true;
 					break;
 				}
 			} else {
 				index = 0;
+				result = -1;
 			}
 		}
-		System.out.println("result: "+flag);
+		System.out.println("times1: "+times);
+		return result;
+	}
+	
+	public static int isMatchx(String source, String target) {
+		int slen = source.length();
+		int tlen = target.length();
+		if(slen<tlen) {
+			return -1;
+		}
+		char[] sarr = source.toCharArray();
+		char[] tarr = target.toCharArray();
+		int times = 0;
+		System.out.println("length2: "+slen);
+		for(int i=tlen-1; i<slen; i++) {
+			times ++;
+			if(tarr[tlen-1] == sarr[i]) {
+				int k = tlen-2;
+				for(int j=i-1; j>i-tlen; j--) {
+					times ++;
+					if(tarr[k] == sarr[j]) {
+						if(k == 0) {
+							System.out.println("times2: "+times);
+							return j;
+						}
+						k --;
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	public static void main(String[] args) {
+		System.out.println("result1: "+isMatch("yorhellomynameisrrhowareyoxwhatisyornameyousfdsf", "you"));
+		System.out.println("result2: "+isMatchx("yorhellomynameisrrhowareyoxwhatisyornameyousfdsf", "you"));
 	}
 
 }
