@@ -18,13 +18,11 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("write: "+message);
 		ctx.writeAndFlush(message);
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		System.out.println("read: "+msg);
 		ctx.write(msg);
 	}
 
@@ -35,8 +33,19 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		cause.printStackTrace();
+		//cause.printStackTrace();
+		System.out.println("client handler error.");
 		ctx.close();
+	}
+
+	@Override
+	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+		System.out.println("client handler added.");
+	}
+
+	@Override
+	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+		System.out.println("client handler removed.");
 	}
 
 }
