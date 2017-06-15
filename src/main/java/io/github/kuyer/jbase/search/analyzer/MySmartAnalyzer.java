@@ -1,18 +1,18 @@
 package io.github.kuyer.jbase.search.analyzer;
 
-import io.github.kuyer.jbase.search.analyzer.filter.MySameTokenFilter;
-
 import java.nio.charset.StandardCharsets;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.WordlistLoader;
 import org.apache.lucene.analysis.cn.smart.HMMChineseTokenizer;
 import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.en.PorterStemFilter;
-import org.apache.lucene.analysis.util.CharArraySet;
-import org.apache.lucene.analysis.util.WordlistLoader;
 import org.apache.lucene.util.IOUtils;
+
+import io.github.kuyer.jbase.search.analyzer.filter.MySameTokenFilter;
 
 public class MySmartAnalyzer extends Analyzer {
 	

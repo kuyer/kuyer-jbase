@@ -1,12 +1,12 @@
 package io.github.kuyer.jbase.search.analyzer;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.LowerCaseTokenizer;
 import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.core.StopFilter;
-import org.apache.lucene.analysis.util.CharArraySet;
 
 public class MyAnalyzer extends Analyzer {
 	
