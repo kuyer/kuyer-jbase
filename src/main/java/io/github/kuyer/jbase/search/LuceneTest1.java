@@ -43,8 +43,13 @@ public class LuceneTest1 {
 		System.out.println("可用索引："+reader.numDocs());
 		System.out.println("删除索引："+reader.numDeletedDocs());
 		IndexSearcher search = new IndexSearcher(reader);
+		//String word = "rory";
+		//String field = "name";
+		//Analyzer analyzer = new StandardAnalyzer();
+		//QueryParser parser = new QueryParser(field, analyzer);
+		//Query query = parser.parse(word);
 		System.out.println("查询结果");
-		//Term term = new Term("name", "rory");
+		//Term term = new Term(field, word);
 		//TermQuery query = new TermQuery(term);//精确匹配
 		//FuzzyQuery query = new FuzzyQuery(term);//模糊匹配
 		MatchAllDocsQuery query = new MatchAllDocsQuery();//查询全部
