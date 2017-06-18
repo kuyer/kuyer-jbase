@@ -5,6 +5,8 @@ package io.github.kuyer.jbase.lang;
  * 1byte = 8bit = 0111 1111
  * 1short = 2byte
  * 1int = 4byte
+ * & 只有2个二进制数字都是1，才为1
+ * | 2个二进制数字有一个是1，就为1
  * @author rory.zhang
  */
 public class DataTest {
@@ -38,6 +40,11 @@ public class DataTest {
 		sx[0] = (byte) (s2 >> 8);//0000 0000 0000 0001 -> 0000 0000 0000 0000 -> 0
 		sx[1] = (byte) s2;////0000 0000 0000 0001 -> 0000 0001 -> 1
 		System.out.println("低8位："+sx[0] + "; 高8位：" + sx[1]);
+		
+		short n1 = (short) ((sx[0] & 0xff) << 8);// 0000 0000 & 1111 1111 -> 0000 0000 -> 0000 0000 -> 0
+		short n2 = (short) (sx[1] & 0xff);// 0000 0001 & 1111 1111 -> 0000 0001 -> 1
+		short n3 = (short) (n1 | n2);// 0000 0000 | 0000 0001 -> 0000 0001 -> 1
+		System.out.println(n1+" - "+n2+" - "+n3);
 		
 		int q0 = 1;// 01
 		int q1 = 2;// 10 00:0 01:1 10:2 11:3
