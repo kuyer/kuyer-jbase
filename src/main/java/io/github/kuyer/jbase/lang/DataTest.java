@@ -38,6 +38,14 @@ public class DataTest {
 		sx[0] = (byte) (s2 >> 8);//0000 0000 0000 0001 -> 0000 0000 0000 0000 -> 0
 		sx[1] = (byte) s2;////0000 0000 0000 0001 -> 0000 0001 -> 1
 		System.out.println("低8位："+sx[0] + "; 高8位：" + sx[1]);
+		
+		int q0 = 1;// 01
+		int q1 = 2;// 10 00:0 01:1 10:2 11:3
+		int q2 = 3;// 11
+		System.out.println(q0 & q1);// 01 10 -> 00 -> 0
+		System.out.println(q0 & q2);// 01 11 -> 01 -> 1
+		System.out.println(q1 & q2);// 10 11 -> 10 -> 2
+		System.out.println(q1 | q2);// 10 11 -> 11 -> 3
 	}
 
 }
