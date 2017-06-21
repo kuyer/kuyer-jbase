@@ -18,12 +18,15 @@ public class Fibonacci {
 		System.out.println(fibonacci0(n));
 		long t3 = System.currentTimeMillis();
 		System.out.println("fibonacci0: "+(t3-t2));
-		
-		
 	}
 	
+	/**
+	 * 简单方式：两层递归。问题是：随着n的值增加，时间和空间消耗太大
+	 * @param n
+	 * @return
+	 */
 	public static long fibonacci0(long n) {
-		if(n == 0) {
+		if(n <= 0) {
 			return 0;
 		} else if(n == 1) {
 			return 1;
@@ -32,6 +35,11 @@ public class Fibonacci {
 		}
 	}
 	
+	/**
+	 * 不时间递归方式，时间复杂度比较低O(n)
+	 * @param n
+	 * @return
+	 */
 	public static long fibonacci1(long n) {
 		if(n <= 0) {
 			return 0;
