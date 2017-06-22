@@ -56,6 +56,23 @@ public class BsTree<T extends Comparable<T>> {
 		//TODO 销毁二叉树
 	}
 	
+	public BsNode<T> search(T key) {
+		BsNode<T> tode = null;
+		BsNode<T> node = this.root;
+		while(null != node) {
+			int cmp = key.compareTo(node.key);
+			if(cmp < 0) {
+				node = node.left;
+			} else if(cmp > 0) {
+				node = node.right;
+			} else {
+				tode = node;
+				node = null;
+			}
+		}
+		return tode;
+	}
+	
 	public BsNode<T> get(T key) {
 		return get(this.root, key);
 	}
@@ -136,6 +153,8 @@ public class BsTree<T extends Comparable<T>> {
 		System.out.println("#############################");
 		System.out.println("min: "+bstree.getMin());
 		System.out.println("max: "+bstree.getMax());
+		System.out.println("get: "+bstree.get(32));
+		System.out.println("search: "+bstree.search(32));
 	}
 
 }
